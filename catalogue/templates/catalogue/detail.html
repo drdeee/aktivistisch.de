@@ -1,0 +1,137 @@
+{% extends "base.html" %} {% load idea_tools %} {% block content %}
+<div class="mt-10 mb-5">
+  <div class="text-5xl mb-3 p-2 px-3 text-center font-bold uppercase">
+    {{ idea.name }}
+  </div>
+  <a
+    href="{% url 'idea-overview' %}"
+    class="flex flex-row justify-start items-center border-2 border-theme border-b-0 px-3 py-1 uppercase hover:bg-theme hover:text-white duration-100"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="mr-2 w-5 h-5 block"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+      />
+    </svg>
+    <div>Zurück zur Übersicht</div>
+  </a>
+  <div class="border-2 border-theme">
+    <div class="flex md:flex-row flex-col">
+      <div
+        class="w-full md:w-2/3 md:border-r-2 md:border-b-0 border-b-2 border-theme p-3"
+      >
+        <div class="mb-2">{{ idea.description|safe }}</div>
+        {% if idea.example %}
+        <div>
+          <div class="font-bold">Beispiel</div>
+          <div>{{ idea.example|safe }}</div>
+        </div>
+        {% endif %}
+      </div>
+      <div class="flex-grow p-3">
+        <div class="w-full mb-3">
+          <div class="flex items-center justify-between text-sm mb-1">
+            <div class="flex flex-row items-center space-x-1">
+              <div class="block font-bold">
+                Notwendige Erfahrung {% if idea.experience_note %}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-5 h-5 inline-block ml-1"
+                  data-tooltip="{{ idea.experience_note }}"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                  />
+                </svg>
+                {% endif %}
+              </div>
+            </div>
+            <h6 class="block">
+              {{ idea.experience_level|experience_to_text }}
+            </h6>
+          </div>
+          <div
+            class="flex-start flex h-5 w-full overflow-hidden border-2 border-theme"
+          >
+            <div
+              style="width: {{ idea.experience_level|to_percent }}%"
+              class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-theme"
+            ></div>
+          </div>
+        </div>
+        <div class="w-full mb-3">
+          <div class="flex items-center justify-between text-sm mb-1">
+            <div class="flex flex-row items-center space-x-1">
+              <div class="block font-bold">
+                Aufwand {% if idea.effort_note %}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-5 h-5 inline-block ml-1"
+                  data-tooltip="{{ idea.effort_note }}"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
+                  />
+                </svg>
+                {% endif %}
+              </div>
+            </div>
+            <h6 class="block">{{ idea.effort_level|effort_to_text }}</h6>
+          </div>
+          <div
+            class="flex-start flex h-5 w-full overflow-hidden border-2 border-theme"
+          >
+            <div
+              style="width: {{ idea.effort_level|to_percent }}%"
+              class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-theme"
+            ></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center justify-between text-sm">
+            <h6 class="block font-bold">Benötigte Menschen</h6>
+            <h6 class="block">{{idea|people_span}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mt-5">
+  <div class="text-4xl font bold">Anleitung</div>
+  {% for step in idea.steps.all %}
+  <div class="mt-5">
+    <div class="text-xl font-bold">{{ step.name }}</div>
+    <div class="mt-3">{{ step.content|safe }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %} {% block javascript %}
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script lang="javascript">
+  tippy("[data-tooltip]", {
+    content: (reference) => reference.getAttribute('data-tooltip'),
+  });
+</script>
+{% endblock %}

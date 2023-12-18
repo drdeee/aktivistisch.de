@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "aktivistisch-de"
+version = "0.1.0"
+description = ""
+authors = ["Elias Bistry <eliasbistry@riseup.net>"]
+readme = "README.md"
+packages = [{include = "aktivistisch"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Django = "^5.0"
+django-ckeditor = "^6.7.0"
+django-tailwind = {extras = ["reload"], version = "^3.7.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

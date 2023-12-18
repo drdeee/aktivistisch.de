@@ -1,0 +1,34 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <title>Aktiv werden?</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Rubik"
+    />
+    <style>
+      body {
+        font-family: "Rubik", sans-serif;
+      }
+    </style>
+
+    {% block css %} {% endblock %} {% tailwind_css %}
+  </head>
+  <body>
+    <main class="flex flex-row justify-center p-3">
+      <div class="w-full lg:w-4/5 xl:w-3/5 2xl:w-1/2">
+        {% block content %} {% endblock %}
+      </div>
+    </main>
+    {% if user.is_authenticated %}
+    <div class="fixed top-0 left-0 p-1">
+      <a href="/admin">Zum Admin</a>
+    </div>
+    {% endif %}
+  </body>
+  {% block javascript %} {% endblock %}
+</html>
