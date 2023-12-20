@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-rklr))ukga#0$z47gr&=sy)#ou
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("PRODUCTION") != "TRUE"
-print(DEBUG)
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "aktivistisch.de").split(" ")
 
 
