@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-rklr))ukga#0$z47gr&=sy)#ouxe$p1+m^+8(vxs(z=bvwafz#'
+SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-rklr))ukga#0$z47gr&=sy)#ouxe$p1+m^+8(vxs(z=bvwafz#')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = os.getenv("PRODUCTION") != "TRUE"
+print(DEBUG)
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "aktivistisch.de").split(" ")
 
 
 # Application definition
@@ -79,11 +84,22 @@ WSGI_APPLICATION = 'aktivistisch_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+mysql_database = {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("MYSQL_DATABASE"),
+        "USER": os.getenv("MYSQL_USER"),
+        "PASSWORD": os.getenv("MYSQL_PASSWORD"),
+        "HOST": os.getenv("MYSQL_HOST"),
+        "PORT": os.getenv("MYSQL_PORT"),
+    }
+
+sqlite3_dataabase = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
+
+DATABASES = {
+    'default': DEBUG and sqlite3_dataabase or mysql_database
 }
 
 
