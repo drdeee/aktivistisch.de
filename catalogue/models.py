@@ -35,9 +35,16 @@ class ProjectIdea(models.Model):
     description = RichTextField()
     example = RichTextField(null=True, blank=True)
 
+    image = models.ImageField(null=True, blank=True)
+
     def __str__(self):
         return self.name
-    
+
+    @property
+    def image_as_background(self):
+        if self.image != None:
+            return f"background-image: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 56%),url({self.image.url});"
+        return ""
 
 class Step(models.Model):
     project_idea = models.ForeignKey(ProjectIdea, related_name='steps', on_delete=models.CASCADE)

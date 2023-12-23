@@ -36,6 +36,7 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "aktivistisch.de").split(" ")
 # Application definition
 
 INSTALLED_APPS = [
+    'theme',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ckeditor',
     'tailwind',
-    'theme',
+    'image_uploader_widget',
     'django_browser_reload',
     'catalogue'
 ]
@@ -140,6 +141,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = 'media/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -149,3 +153,19 @@ TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar_Aktivistisch': [
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+        ],
+        'toolbar': 'Aktivistisch',  # put selected toolbar config here
+        'link': {
+            'addTargetToExternalLinks': True
+        }
+    },
+}
