@@ -43,7 +43,7 @@ class ProjectIdea(models.Model):
     @property
     def image_as_background(self):
         if self.image != None:
-            return f"background-image: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0) 56%),url({self.image.url});"
+            return f"background-image: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 66%),url({self.image.url});"
         return ""
 
 class Step(models.Model):

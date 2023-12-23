@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% load idea_tools %} {% block content %}
 <div class="mb-5">
   <div
-    class="p-3 bg-theme text-white font-bold uppercase bg-cover bg-center lg:h-64 h-56 flex flex-col justify-end lg:text-7xl md:text-6xl text-5xl mb-3 shadow"
+    class="p-3 bg-theme text-white font-bold uppercase bg-cover bg-center lg:h-64 h-56 flex flex-col justify-end lg:text-5xl md:text-4xl text-3xl mb-3 shadow break-words"
     style="{{ idea.image_as_background }}"
   >
     <div>{{ idea.name }}</div>
@@ -108,11 +108,9 @@
   </div>
 </div>
 <div class="mt-7">
-  <div class="text-4xl font bold">Anleitung</div>
+  <div class="lg:text-4xl md:text-3xl text-2xl font bold">Anleitung</div>
   <details>
-    <summary class="text-small text-gray-500 cursor-pointer">
-      Navigation
-    </summary>
+    <summary class="text-sm text-gray-500 cursor-pointer">Navigation</summary>
     <ol>
       {% for step in idea.steps.all %}
       <li class="list-decimal list-inside text-sm">

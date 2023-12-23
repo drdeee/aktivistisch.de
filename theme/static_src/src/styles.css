@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  @apply hyphens-auto;
+}
+
 .usertext ul {
   @apply list-disc list-inside;
 }
