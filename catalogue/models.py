@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from ckeditor.fields import RichTextField
+from django.utils.translation import gettext_lazy as _
 
 
 class ProjectIdea(models.Model):
@@ -35,7 +36,7 @@ class ProjectIdea(models.Model):
     description = RichTextField()
     example = RichTextField(null=True, blank=True)
 
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to="images", null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -46,8 +47,35 @@ class ProjectIdea(models.Model):
             return f"background-image: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 66%),url({self.image.url});"
         return ""
 
+    @property
+    def downloads(self):
+        return Attachment.objects.filter(project_idea=self, attachment_type="DOWNLOAD")
+
+    def resources(self):
+        return Attachment.objects.filter(project_idea=self, attachment_type="RESOURCE")
+
 class Step(models.Model):
     project_idea = models.ForeignKey(ProjectIdea, related_name='steps', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=300)
     content = RichTextField()
+
+class Attachment(models.Model):
+    project_idea = models.ForeignKey(ProjectIdea, related_name='attachments', on_delete=models.CASCADE)
+    
+    name = models.CharField(max_length=30)
+
+
+    class AttachmentType(models.TextChoices):
+        RESSOURCE = "RESOURCE", _("Resource")
+        DOWNLOAD  = "DOWNLOAD", _("Download")
+    attachment_type = models.CharField(max_length=9, choices=AttachmentType.choices, default=AttachmentType.RESSOURCE)
+
+    content = RichTextField(null=True, blank=True)
+    file = models.FileField(upload_to='attachments', null=True, blank=True)
+
+    @property
+    def file_type(self):
+        if self.file:
+            return self.file.name.lower().split(".")[-1]
+        return ""

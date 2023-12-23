@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProjectIdea, Step
+from .models import ProjectIdea, Step, Attachment
 from django.db import models
 from image_uploader_widget.widgets import ImageUploaderWidget
 from django import forms
@@ -7,6 +7,11 @@ from django import forms
 
 class StepInline(admin.StackedInline):
     model = Step
+    classes = ['collapse']
+
+class AttachmentInline(admin.StackedInline):
+    model = Attachment
+    classes = ['collapse']
 
 class ProjectIdeaAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
@@ -21,7 +26,7 @@ class ProjectIdeaAdmin(admin.ModelAdmin):
                 ]
         }),
     ]
-    inlines = [StepInline]
+    inlines = [StepInline, AttachmentInline]
     formfield_overrides = {
         models.ImageField: {'widget': ImageUploaderWidget},
     }
