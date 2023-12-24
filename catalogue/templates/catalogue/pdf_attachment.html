@@ -1,0 +1,29 @@
+{% extends "base.html" %}{% load idea_tools %}
+<!---->
+{% block title %}{{attachment.name}}{% endblock %} {% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+<style>
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+</style>
+<h1 class="text-2xl bold mb-2">{{attachment.name}}</h1>
+<div class="usertext">{{attachment.content|safe}}</div>
+<div class="flex justify-between text-sm">
+  <div>
+    <a
+      class="underline"
+      href="{% url 'idea-detail' attachment.project_idea.slug %}"
+      >Zur Projektidee</a
+    >
+  </div>
+  <div>
+    Herunterladen als
+    <a class="underline" href="{% url 'attachment-docx' attachment.id %}"
+      >DOCX</a
+    >
+  </div>
+</div>
+{% endblock %}
+<!---->
+{% block admin %} {%endblock %}

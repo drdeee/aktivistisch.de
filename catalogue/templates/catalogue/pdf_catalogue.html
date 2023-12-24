@@ -1,0 +1,100 @@
+{% extends "base.html" %}{% load idea_tools %} {% block title %}Aktiv werden? -
+Projektkatalog{% endblock %} {% block content %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" />
+<style>
+  body {
+    font-family: "Roboto", sans-serif;
+  }
+</style>
+<div class="flex flex-row justify-between text-sm">
+  <a
+    href="https://aktivistisch.de"
+    class="block text-blue-500 hover:text-blue-800"
+    >aktivistisch.de</a
+  >
+  <div>Stand {% now "d.m.Y" %}</div>
+</div>
+<div class="text-center my-40">
+  <div class="text-4xl">Aktiv werden?</div>
+  <div class="text-6xl font-bold">PROJEKTKATALOG</div>
+</div>
+<h1 class="text-3xl font-bold text-center">Inhaltsverzeichnis</h1>
+<ol class="list-decimal list-inside">
+  {% for idea in object_list %}
+  <li><a href="#{{ idea.name|slugify }}">{{ idea.name}}</a></li>
+  {% endfor %}
+</ol>
+
+{% for idea in object_list %}
+<h2
+  class="text-2xl py-2 font-bold"
+  id="{{ idea.name|slugify}}"
+  style="break-before: always"
+>
+  {{forloop.counter}}. {{ idea.name}}
+</h2>
+<div class="usertext">{{ idea.description|safe }}</div>
+{% if idea.example %}
+
+<div class="text-lg font-bold mt-3">Beispiel</div>
+<div class="usertext">{{ idea.example|safe }}</div>
+
+{% endif %}
+<div class="w-full mt-3" style="break-after: always">
+  <div class="mb-1">
+    <b>Notwendige Erfahrung:</b> {{ idea.experience_level|experience_to_text }}
+    {% if idea.experience_note %}
+    <div class="text-sm italic">{{ idea.experience_note}}</div>
+    {% endif %}
+  </div>
+  <div class="mb-1">
+    <div><b>Aufwand:</b> {{ idea.effort_level|effort_to_text }}</div>
+    {% if idea.effort_note %}
+    <div class="text-sm italic">{{ idea.effort_note}}</div>
+    {% endif %}
+  </div>
+  <div><b>Benötigte Menschen:</b> {{ idea|people_span }}</div>
+  <div class="text-xl font-bold mt-3">Anleitung</div>
+  {% for step in idea.steps.all %}
+  <div class="mt-2">
+    <div class="text-lg font-medium">#{{forloop.counter}} {{ step.name }}</div>
+    <div class="usertext ml-4">{{ step.content|safe }}</div>
+  </div>
+  {% endfor %}
+</div>
+
+{% if idea.downloads.count > 0 %}
+<div class="text-xl font-bold mb-2 mt-3">Downloads</div>
+<div class="flex mb-3 flex-col md:flex-row space-x-1">
+  <ul class="list-disc list-inside">
+    {% for download in idea.downloads %}
+    <li>
+      <a class="underline" href="{{ download.file.url }}">{{download.name}}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}{% if idea.resources.count > 0 %}
+<div id="_resources_{{ idea.name|slugify}}" class="text-xl font-bold mt-3 mb-2">
+  Weitere Ressourcen
+</div>
+
+{% for resource in idea.resources %}
+<div class="mb-3">
+  <div>{{ resource.name }}</div>
+
+  <div class="p-3 mt-2 border">
+    <div>{{resource.content|safe}}</div>
+    <div class="text-right text-sm mt-3">
+      Herunterladen als:
+      <a href="{% url 'attachment-pdf' resource.id %}" class="underline">PDF</a>
+      |
+      <a href="{% url 'attachment-docx' resource.id %}" class="underline"
+        >DOCX</a
+      >
+    </div>
+  </div>
+</div>
+{% endfor %} {% endif %} {% endfor %} {% endblock %}
+<!---->
+{% block admin %} {%endblock %}

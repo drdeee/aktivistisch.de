@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <title>Aktiv werden?</title>
+    <title>{% block title%}Aktiv werden?{%endblock%}</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -24,11 +24,11 @@
         {% block content %} {% endblock %}
       </div>
     </main>
-    {% if user.is_authenticated %}
+    {% block admin %} {% if user.is_authenticated %}
     <div class="fixed top-0 left-0 py-1 px-2 bg-white">
       <a href="/admin">Zum Admin</a>
     </div>
-    {% endif %}
+    {% endif %} {% endblock %}
   </body>
   {% block javascript %} {% endblock %}
 </html>

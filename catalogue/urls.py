@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from catalogue.views import CatalogueListView, CatalogueDetailView
+from catalogue.views import CatalogueListView, CatalogueDetailView, CataloguePDFView, AttachmentPDFView, AttachmentDOCXView
 
 urlpatterns = [
     path('', CatalogueListView.as_view(), name="idea-overview"),
     path('idea/<slug:slug>/', CatalogueDetailView.as_view(), name="idea-detail"),
+    path('download/catalogue', CataloguePDFView.as_view()),
+    path('download/attachment/<int:pk>.pdf', AttachmentPDFView.as_view(), name="attachment-pdf"),
+    path('download/attachment/<int:pk>.docx', AttachmentDOCXView.as_view(), name="attachment-docx"),
 ]

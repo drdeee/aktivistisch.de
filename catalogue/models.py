@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 class ProjectIdea(models.Model):
     name = models.CharField(max_length=100)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     featured = models.BooleanField(default=False)
 
     experience_level = models.IntegerField(validators=[
