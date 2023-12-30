@@ -8,6 +8,8 @@ from htmldocx import HtmlToDocx
 from .models import ProjectIdea, Attachment
 from django.urls import reverse
 from aktivistisch_web.seo import get_breadcrumb
+from django.utils.html import strip_tags
+from django.utils.safestring import mark_safe
 
 class CatalogueListView(ListView):
     template_name = "catalogue/overview.html"
@@ -18,7 +20,8 @@ class CatalogueListView(ListView):
         context = super(CatalogueListView, self).get_context_data(**kwargs)
         context["meta"] = {
             'title':"Startseite - Aktiv werden!",
-            'description': "Hier findest du Idden, wie du aktiv werden kannst"
+            'url': self.request.build_absolute_uri(),
+            'description': "Werde aktiv für die Wahlen 2024, denn es gibt keine rechtsextreme Demokratie. Aktionsideen und Materialien dazu finden sich auf dieser Seite."
         }
         return context
 
@@ -35,7 +38,8 @@ class CatalogueDetailView(DetailView):
             image = self.request.build_absolute_uri(idea.image.url)
         context["meta"] = {
             'title': f"{idea.name} - Aktiv werden!",
-            'description': idea.description,
+            'url': self.request.build_absolute_uri(),
+            'description': mark_safe(strip_tags(idea.description)),
             'breadcrumb': get_breadcrumb([{
                 "name": "Projektkatalog",
                 "url": self.request.build_absolute_uri(reverse("main"))
