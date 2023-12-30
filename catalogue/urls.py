@@ -19,7 +19,7 @@ from django.urls import path, include
 from catalogue.views import CatalogueListView, CatalogueDetailView, CataloguePDFView, AttachmentPDFView, AttachmentDOCXView
 
 urlpatterns = [
-    path('', CatalogueListView.as_view(), name="idea-overview"),
+    path('', CatalogueListView.as_view(), name="main"),
     path('idea/<slug:slug>/', CatalogueDetailView.as_view(), name="idea-detail"),
     path('download/catalogue', CataloguePDFView.as_view()),
     path('download/attachment/<int:pk>.pdf', AttachmentPDFView.as_view(), name="attachment-pdf"),

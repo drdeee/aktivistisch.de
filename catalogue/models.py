@@ -38,6 +38,8 @@ class ProjectIdea(models.Model):
 
     image = models.ImageField(upload_to="images", null=True, blank=True)
 
+    last_updated = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.name
 
