@@ -1,11 +1,8 @@
 {% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" prefix="og: https://ogp.me/ns#">
   <head>
-    <title>{% block title%}Aktiv werden?{%endblock%}</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    {% include "meta.html" %}
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Rubik"

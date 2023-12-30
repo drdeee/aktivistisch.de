@@ -20,7 +20,7 @@ from catalogue.views import CatalogueListView, CatalogueDetailView, CataloguePDF
 
 urlpatterns = [
     path('', CatalogueListView.as_view(), name="main"),
-    path('idea/<slug:slug>/', CatalogueDetailView.as_view(), name="idea-detail"),
+    path('<slug:slug>/', CatalogueDetailView.as_view(), name="idea-detail"),
     path('download/catalogue', CataloguePDFView.as_view()),
     path('download/attachment/<int:pk>.pdf', AttachmentPDFView.as_view(), name="attachment-pdf"),
     path('download/attachment/<int:pk>.docx', AttachmentDOCXView.as_view(), name="attachment-docx"),

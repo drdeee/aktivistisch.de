@@ -1,0 +1,25 @@
+<title>{{meta.title}}</title>
+<meta name="description" content="{{meta.description | striptags }}" />
+
+<!-- google -->
+{% if meta.breadcrumb %}
+<script type="application/ld+json">
+  {{ meta.breadcrumb | safe }}
+</script>
+{% endif %}
+
+<!-- open graph meta -->
+<meta property="og:title" content="{{meta.title}}" />
+<meta property="og:description" content="{{meta.description | striptags }}" />
+<meta property="locale" content="de_DE" />
+<meta property="site_name" content="aktivistisch.de" />
+
+{% if meta.image %}
+<meta property="og:image" content="{{meta.image}}" />
+{% endif %}
+
+<!-- viewport meta -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- charset -->
+<meta charset="UTF-8" />

@@ -21,7 +21,7 @@ from catalogue.views import CatalogueListView
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .sitemap import site_infos
+from .seo import site_infos
 
 urlpatterns = [
     path('admin/', admin.site.urls, name="admin-main-page"),

@@ -21,9 +21,9 @@
 </div>
 -->
 <div>
-  <div class="text-7xl uppercase text-center font-bold mt-16 mb-5">
+  <h1 class="block text-7xl uppercase text-center font-bold mt-16 mb-5">
     Aktiv werden?
-  </div>
+  </h1>
   <div class="mb-3">
     Hier findest du verschiedene Möglichkeiten und Ideen, wie du selber aktiv
     werden kannst! Dabei versuchen wir dich so gut wie möglich zu unterstützen
@@ -67,7 +67,7 @@
     class="p-3 bg-theme text-white font-bold uppercase bg-cover bg-center h-56 flex flex-col justify-end text-3xl md:text-4xl lg:text-5xl mb-3 shadow break-words"
     style="{{ idea.image_as_background }}"
   >
-    <div>{{ idea.name }}</div>
+    <h2>{{ idea.name }}</h2>
   </div>
   <div class="border-2 border-theme">
     <div class="flex md:flex-row flex-col">
@@ -153,7 +153,7 @@
     target="_self"
     class="flex flex-row justify-end items-center border-2 border-theme border-t-0 px-3 py-1 uppercase hover:bg-theme hover:text-white duration-100"
   >
-    <div>Zur Anleitung</div>
+    <div>Zu {{ idea.name }}</div>
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"

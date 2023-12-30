@@ -3,7 +3,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from ckeditor.fields import RichTextField
 from django.utils.translation import gettext_lazy as _
 
-
 class ProjectIdea(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -45,9 +44,18 @@ class ProjectIdea(models.Model):
 
     @property
     def image_as_background(self):
-        if self.image != None:
-            return f"background-image: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 66%),url({self.image.url});"
-        return ""
+        try:
+            if self.image != None:
+                return f"background-image: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 66%),url({self.image.url});"
+            return ""
+        except:
+            return ""
+    @property
+    def image_url(self):
+        if self.image:
+            return self.image.url
+        else:
+            return None
 
     @property
     def downloads(self):
