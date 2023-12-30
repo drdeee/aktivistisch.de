@@ -1,3 +1,5 @@
+{% load static %}
+
 <title>{{meta.title}}</title>
 <meta name="description" content="{{meta.description | striptags }}" />
 
@@ -34,3 +36,9 @@
 
 <!-- charset -->
 <meta charset="UTF-8" />
+
+<link
+  rel="icon"
+  href="{% static 'aktivistisch/favicon.svg' %}"
+  type="image/svg+xml"
+/>

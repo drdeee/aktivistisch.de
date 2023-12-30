@@ -28,8 +28,5 @@ urlpatterns = [
     path('', include("catalogue.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": site_infos }, name="django.contrib.sitemaps.views.sitemap"),
-]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

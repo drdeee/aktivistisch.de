@@ -171,12 +171,4 @@
   </a>
 </div>
 {% empty %} Es existieren keine Projektideen (unwahrscheinlich lol) {% endfor %}
-{% endblock %} {% block javascript %}
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
-<script lang="javascript">
-  tippy("[data-tooltip]", {
-    content: (reference) => reference.getAttribute('data-tooltip'),
-  });
-</script>
 {% endblock %}
