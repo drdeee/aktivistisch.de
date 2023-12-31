@@ -8,6 +8,10 @@
 <script type="application/ld+json">
   {{ meta.breadcrumb | safe }}
 </script>
+{% endif %} {% if faq_json %}
+<script type="application/ld+json">
+  {{ faq_json | safe }}
+</script>
 {% endif %}
 
 <!-- open graph meta -->

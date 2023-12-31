@@ -17,6 +17,10 @@ a.highlight {
   @apply text-blue-600 hover:text-blue-950 duration-75 underline;
 }
 
+a.highlight.remove-underline {
+  @apply no-underline;
+}
+
 .usertext a {
   @apply text-blue-600 hover:text-blue-950 duration-75;
 }

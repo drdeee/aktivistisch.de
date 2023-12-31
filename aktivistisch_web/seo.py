@@ -47,4 +47,4 @@ def get_breadcrumb(items):
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": breadcrumb_items
-    })    
+    })

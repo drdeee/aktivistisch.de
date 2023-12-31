@@ -6,28 +6,13 @@
   >
     <h1>{{ idea.name }}</h1>
   </div>
-  <a
-    target="_self"
-    href="{% url 'main' %}"
-    class="flex flex-row justify-start items-center border-2 border-theme border-b-0 px-3 py-1 uppercase hover:bg-theme hover:text-white duration-100"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="mr-2 w-5 h-5 block"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-      />
-    </svg>
-    <div>Zurück zur Übersicht</div>
-  </a>
-  <div class="border-2 border-theme">
+  <div style="text-sm">
+    <a class="highlight remove-underline" target="_self" href="{% url 'main' %}"
+      >Startseite
+    </a>
+    &gt; {{idea.name}}
+  </div>
+  <div class="border-2 mt-3 border-theme">
     <div class="flex md:flex-row flex-col">
       <div
         class="w-full md:w-2/3 md:border-r-2 md:border-b-0 border-b-2 border-theme p-3"
@@ -202,12 +187,4 @@
   </div>
   {% endif %}
 </div>
-{% endif %} {% endblock %} {% block javascript %}
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
-<script lang="javascript">
-  tippy("[data-tooltip]", {
-    content: (reference) => reference.getAttribute('data-tooltip'),
-  });
-</script>
-{% endblock %}
+{% endif %} {% endblock %}
