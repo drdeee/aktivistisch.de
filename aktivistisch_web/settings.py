@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     'ckeditor',
+    'solo',
     'tailwind',
     'image_uploader_widget',
     'django_browser_reload',

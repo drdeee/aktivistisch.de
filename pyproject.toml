@@ -19,6 +19,7 @@ django-image-uploader-widget = "^0.4.1"
 weasyprint = "^60.2"
 django-weasyprint = "^2.2.2"
 htmldocx = "^0.0.6"
+django-solo = "^2.1.0"
 
 
 [build-system]

@@ -5,7 +5,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django_weasyprint.views import WeasyTemplateResponseMixin
 from django.http import FileResponse
 from htmldocx import HtmlToDocx
-from .models import ProjectIdea, Attachment
+from .models import ProjectIdea, Attachment, OverviewConfiguration, FAQ
 from django.urls import reverse
 from aktivistisch_web.seo import get_breadcrumb
 from django.utils.html import strip_tags
@@ -18,10 +18,13 @@ class CatalogueListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CatalogueListView, self).get_context_data(**kwargs)
+        overview = OverviewConfiguration.get_solo()
+        context["overview"] = overview
+        context["faq"] = FAQ.objects.all().order_by("question")
         context["meta"] = {
-            'title':"Startseite - Aktiv werden!",
+            'title': f"Startseite - {overview.page_title}",
             'url': self.request.build_absolute_uri(),
-            'description': "Werde aktiv für die Wahlen 2024, denn es gibt keine rechtsextreme Demokratie. Aktionsideen und Materialien dazu finden sich auf dieser Seite."
+            'description': overview.page_description
         }
         return context
 

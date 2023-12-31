@@ -13,6 +13,9 @@ body {
 .usertext ol {
   @apply list-decimal list-inside;
 }
+a.highlight {
+  @apply text-blue-600 hover:text-blue-950 duration-75 underline;
+}
 
 .usertext a {
   @apply text-blue-600 hover:text-blue-950 duration-75;

@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from ckeditor.fields import RichTextField
 from django.utils.translation import gettext_lazy as _
+from solo.models import SingletonModel
 
 class ProjectIdea(models.Model):
     name = models.CharField(max_length=100)
@@ -89,3 +90,20 @@ class Attachment(models.Model):
         if self.file:
             return self.file.name.lower().split(".")[-1]
         return ""
+
+class OverviewConfiguration(SingletonModel):
+    title = models.CharField(max_length=100)
+    overview_text = RichTextField()
+
+    page_title = models.CharField(max_length=100)
+    page_description = models.TextField(max_length=500)
+
+    def __str__(self):
+        return "Overview Configuration"
+    
+    class Meta:
+        verbose_name = "Overview Configuration"
+
+class FAQ(models.Model):
+    question = models.CharField(max_length=300)
+    answer = RichTextField()

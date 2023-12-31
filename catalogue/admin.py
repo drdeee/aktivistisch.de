@@ -1,8 +1,9 @@
 from django.contrib import admin
-from .models import ProjectIdea, Step, Attachment
+from .models import ProjectIdea, Step, Attachment, OverviewConfiguration, FAQ
 from django.db import models
 from image_uploader_widget.widgets import ImageUploaderWidget
 from django import forms
+from solo.admin import SingletonModelAdmin
 
 
 class StepInline(admin.StackedInline):
@@ -32,3 +33,5 @@ class ProjectIdeaAdmin(admin.ModelAdmin):
     }
 
 admin.site.register(ProjectIdea, ProjectIdeaAdmin)
+admin.site.register(OverviewConfiguration, SingletonModelAdmin)
+admin.site.register(FAQ)
