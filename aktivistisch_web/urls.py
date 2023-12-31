@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import path, include
 from catalogue.views import CatalogueListView
+from django.views.generic.base import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -28,5 +29,5 @@ urlpatterns = [
     path('', include("catalogue.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
     path("sitemap.xml", sitemap, {"sitemaps": site_infos }, name="django.contrib.sitemaps.views.sitemap"),
-] + static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
