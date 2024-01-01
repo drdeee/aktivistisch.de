@@ -13,6 +13,9 @@ from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 
 def get_faq_json(faqs):
+    if len(faqs) == 0:
+        return None
+
     items = [{"@type": "Question", "name": faq.question, "acceptedAnswer": {"@type": "Answer", "text": strip_tags(faq.answer)}} for faq in faqs]
     return json.dumps({
         "@context": "https://schema.org",
