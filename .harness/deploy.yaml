@@ -1,0 +1,17 @@
+kind: pipeline
+spec:
+  stages:
+    - name: deploy
+      spec:
+        platform:
+          arch: amd64
+          os: linux
+        steps:
+          - name: deploy
+            spec:
+              inputs:
+                host: eliasbistry.de
+                key: ""
+              name: ssh
+      type: ci
+version: 1
