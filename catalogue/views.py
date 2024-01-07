@@ -11,6 +11,7 @@ from django.urls import reverse
 from aktivistisch_web.seo import get_breadcrumb
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
+from django.shortcuts import redirect
 
 def get_faq_json(faqs):
     if len(faqs) == 0:
@@ -67,6 +68,9 @@ class CatalogueDetailView(DetailView):
             'image': image
         }
         return context
+
+def old_idea_location_redirect(request, *args, **kwargs):
+    return redirect('idea-detail', permanent=True, slug=kwargs['slug'])
 
 class CataloguePDFView(WeasyTemplateResponseMixin, ListView):
     template_name = "catalogue/pdf_catalogue.html"
