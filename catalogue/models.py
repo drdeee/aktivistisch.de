@@ -8,6 +8,7 @@ class ProjectIdea(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
     featured = models.BooleanField(default=False)
+    draft = models.BooleanField(default=True)
 
     experience_level = models.IntegerField(validators=[
             MaxValueValidator(5),

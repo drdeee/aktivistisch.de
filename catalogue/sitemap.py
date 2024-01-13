@@ -10,7 +10,7 @@ class ProjectIdeaSitemap(Sitemap):
     priority = 0.6
 
     def items(self):
-        return ProjectIdea.objects.all()
+        return ProjectIdea.objects.all().filter(draft=False)
 
     def lastmod(self, idea):
         return idea.last_updated
