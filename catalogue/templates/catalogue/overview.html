@@ -55,34 +55,17 @@
       <div
         class="w-full md:w-2/3 md:border-r-2 md:border-b-0 border-b-2 border-theme p-3"
       >
-        <div class="mb-2">{{ idea.description|safe }}</div>
+        <div class="mb-2 usertext">{{ idea.description|safe }}</div>
         {% if idea.example %}
         <div>
-          <div class="font-bold">Beispiel</div>
+          <div class="font-bold usertext">Beispiel</div>
           <div>{{ idea.example|safe }}</div>
         </div>
         {% endif %}
       </div>
       <div class="flex-grow p-3">
         <div class="w-full mb-4">
-          {% if idea.experience_note %}
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex flex-row items-center space-x-1 mb--5">
-              <div class="font-bold">Notwendige Erfahrung</div>
-            </div>
-            <div>{{ idea.experience_level|experience_to_text }}</div>
-          </div>
-          <div class="text-sm italic font-thin mb-1 pl-2">
-            {{ idea.experience_note}}
-          </div>
-          {% else %}
-          <div class="flex items-center justify-between text-sm mb-1">
-            <div class="flex flex-row items-center space-x-1">
-              <div class="block font-bold">Notwendige Erfahrung</div>
-            </div>
-            <div>{{ idea.experience_level|experience_to_text }}</div>
-          </div>
-          {% endif %}
+          <div class="font-bold text-sm mb-1">Notwendige Erfahrung:</div>
           <div
             class="flex-start flex h-5 w-full overflow-hidden border-2 border-theme"
           >
@@ -90,39 +73,30 @@
               style="width: {{ idea.experience_level|to_percent }}%"
               class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-theme"
             ></div>
+          </div>
+          <div class="text-sm flex justify-between">
+            <div>keine</div>
+            <div>viel</div>
           </div>
         </div>
         <div class="w-full mb-4">
-          {% if idea.effort_note %}
-          <div class="flex items-center justify-between text-sm">
-            <div class="flex flex-row items-center space-x-1 mb--5">
-              <div class="font-bold">Aufwand</div>
-            </div>
-            <div>{{ idea.effort_level|effort_to_text }}</div>
-          </div>
-          <div class="text-sm italic font-thin mb-1 pl-2">
-            {{ idea.effort_note}}
-          </div>
-          {% else %}
-          <div class="flex items-center justify-between text-sm mb-1">
-            <div class="flex flex-row items-center space-x-1">
-              <div class="block font-bold">Aufwand</div>
-            </div>
-            <div>{{ idea.effort_level|effort_to_text }}</div>
-          </div>
-          {% endif %}
+          <div class="font-bold text-sm mb-1">Aufwand:</div>
           <div
             class="flex-start flex h-5 w-full overflow-hidden border-2 border-theme"
           >
             <div
-              style="width: {{ idea.experience_level|to_percent }}%"
+              style="width: {{ idea.effort_level|to_percent }}%"
               class="flex items-center justify-center h-full overflow-hidden text-white break-all bg-theme"
             ></div>
+          </div>
+          <div class="text-sm flex justify-between">
+            <div>minimal</div>
+            <div>hoch</div>
           </div>
         </div>
         <div>
           <div class="flex items-center justify-between text-sm">
-            <div class="block font-bold">Benötigte Menschen</div>
+            <div class="block font-bold">Benötigte Menschen:</div>
             <div class="block">{{idea|people_span}}</div>
           </div>
         </div>

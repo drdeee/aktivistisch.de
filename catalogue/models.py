@@ -12,7 +12,7 @@ class ProjectIdea(models.Model):
 
     experience_level = models.IntegerField(validators=[
             MaxValueValidator(5),
-            MinValueValidator(1)
+            MinValueValidator(0)
         ])
     experience_note = models.TextField(max_length=100, null=True, blank=True)
 
