@@ -19,9 +19,7 @@ class ProjectIdeaAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             "fields": [
-                "name", "slug", "featured", "draft", "image",
-                ("experience_level", "experience_note"),
-                ("effort_level", "effort_note"),
+                "name", "slug", "featured", "draft", "image", "experience_level", "effort_level",
                 ("min_required_people", "max_required_people"),
                 "description", "example"
                 ]

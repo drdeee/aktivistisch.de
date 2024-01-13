@@ -14,13 +14,11 @@ class ProjectIdea(models.Model):
             MaxValueValidator(5),
             MinValueValidator(0)
         ])
-    experience_note = models.TextField(max_length=100, null=True, blank=True)
 
     effort_level = models.IntegerField(validators=[
             MaxValueValidator(5),
             MinValueValidator(1)
         ])
-    effort_note = models.TextField(max_length=100, null=True, blank=True)
 
     min_required_people = models.IntegerField(validators=[
             MinValueValidator(1)
