@@ -7,11 +7,11 @@ body {
 }
 
 .usertext ul {
-  @apply list-disc list-inside;
+  @apply list-disc list-outside;
 }
 
 .usertext ol {
-  @apply list-decimal list-inside;
+  @apply list-decimal list-outside;
 }
 a.highlight {
   @apply text-blue-600 hover:text-blue-950 duration-75 underline;
@@ -34,4 +34,11 @@ p {
 .usertext ul,
 ol {
   @apply ml-2;
+}
+
+.usertext ul,
+.usertext ol {
+  /* user-agent styles */
+  display: block;
+  padding-inline-start: 10px;
 }
