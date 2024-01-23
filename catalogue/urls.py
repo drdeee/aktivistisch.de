@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from catalogue.views import CatalogueListView, CatalogueDetailView, CataloguePDFView, AttachmentPDFView, AttachmentDOCXView, old_idea_location_redirect
+from catalogue.views import CatalogueListView, CatalogueDetailView, CataloguePDFView, AttachmentPDFView, AttachmentDOCXView, old_idea_location_redirect, ImpressumView
 
 urlpatterns = [
     path('', CatalogueListView.as_view(), name="main"),
+    path('impressum/', ImpressumView.as_view(), name="impressum"),
     path('<slug:slug>/', CatalogueDetailView.as_view(), name="idea-detail"),
     path('idea/<slug:slug>/', old_idea_location_redirect),
     path('download/catalogue', CataloguePDFView.as_view()),

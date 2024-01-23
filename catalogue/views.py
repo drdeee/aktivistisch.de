@@ -1,7 +1,7 @@
 import io
 import json
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django_weasyprint.views import WeasyTemplateResponseMixin
 from django.http import FileResponse
@@ -105,3 +105,16 @@ class AttachmentDOCXView(SingleObjectMixin, View):
 
         buffer.seek(0)
         return FileResponse(buffer, as_attachment=True, filename=f"{attachment.name}.docx")
+
+class ImpressumView(TemplateView):
+    template_name = "catalogue/impressum.html"
+
+    def get_context_data(self, **kwargs):
+        context = {}
+        overview = OverviewConfiguration.get_solo()
+        context["overview"] = overview
+        context["meta"] = {
+            'title': f"Impressum - {overview.page_title}",
+            'url': self.request.build_absolute_uri(),
+        }
+        return context

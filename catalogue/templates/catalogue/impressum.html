@@ -1,0 +1,13 @@
+{% extends "base.html" %} {% block content %}
+<div>
+  <h1 class="block text-7xl uppercase text-center font-bold mt-16 mb-5">
+    Impressum
+  </h1>
+  <div class="text-sm text-center">
+    <a href="{% url 'main' %}" class="highlight" target="_self"
+      >Zur Startseite</a
+    >
+  </div>
+</div>
+<div class="mt-10 usertext">{{overview.impressum_text|safe}}</div>
+{% endblock %}

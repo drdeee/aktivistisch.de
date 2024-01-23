@@ -93,6 +93,7 @@ class Attachment(models.Model):
 class OverviewConfiguration(SingletonModel):
     title = models.CharField(max_length=100)
     overview_text = RichTextField()
+    impressum_text = RichTextField()
 
     page_title = models.CharField(max_length=100)
     page_description = models.TextField(max_length=500)
