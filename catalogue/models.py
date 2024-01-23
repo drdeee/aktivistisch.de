@@ -13,12 +13,12 @@ class ProjectIdea(models.Model):
     experience_level = models.IntegerField(validators=[
             MaxValueValidator(5),
             MinValueValidator(0)
-        ])
+        ], help_text="0... none, 5... a lot")
 
     effort_level = models.IntegerField(validators=[
             MaxValueValidator(5),
             MinValueValidator(1)
-        ])
+        ], help_text="1... minimal, 5... noch")
 
     min_required_people = models.IntegerField(validators=[
             MinValueValidator(1)
