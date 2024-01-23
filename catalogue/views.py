@@ -33,7 +33,7 @@ class CatalogueListView(ListView):
         context = super(CatalogueListView, self).get_context_data(**kwargs)
         overview = OverviewConfiguration.get_solo()
         context["overview"] = overview
-        faqs = FAQ.objects.all().order_by("question")
+        faqs = FAQ.objects.all().filter(draft=False).order_by("question")
         context["faq"] = faqs
         context["faq_json"] = get_faq_json(faqs)
         context["meta"] = {

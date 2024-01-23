@@ -107,6 +107,7 @@ class OverviewConfiguration(SingletonModel):
 class FAQ(models.Model):
     question = models.CharField(max_length=300)
     answer = RichTextField()
+    draft = models.BooleanField(default=True)
 
     def __str__(self):
         return self.question
