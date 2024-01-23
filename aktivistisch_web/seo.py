@@ -7,7 +7,8 @@ class StaticViewSitemap(sitemaps.Sitemap):
     changefreq = "monthly"
 
     itemsDict = {
-        "main": 1
+        "main": 1,
+        "impressum": 0.1
     }
 
     def items(self):
