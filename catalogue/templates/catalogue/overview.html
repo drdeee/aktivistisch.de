@@ -64,7 +64,7 @@
     {% for party in parties %}
     <div class="flex items-center">
       <div
-        class="h-3 w-3 rounded-full mr-1"
+        class="h-3 w-3 rounded-full mr-1 {% if party.border %} border {% endif %}"
         style="background-color: {{party.color}};"
       ></div>
       {{party.name}}

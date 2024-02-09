@@ -116,6 +116,7 @@ class FAQ(models.Model):
 class Party(models.Model):
     name = models.CharField(max_length=100)
     color = ColorField(format="hex")
+    border = models.BooleanField(default=False)
     order_by = models.IntegerField(default=0)
 
     @property
@@ -136,6 +137,7 @@ class Party(models.Model):
 
     class Meta:
         verbose_name_plural = "Parties"
+        ordering = ["order_by"]
 
 
 class Prediction(models.Model):
