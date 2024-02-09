@@ -26,7 +26,7 @@
   </h1>
   <div class="mb-5 usertext">{{overview.overview_text|safe}}</div>
 </div>
-<div class="mb-10 text-sm ml-5">
+<div class="mb-5 text-sm ml-5">
   {% if faq|length != 0 %}
   <b class="font-black mb-3"
     >Zum <a target="_self" class="highlight" href="#faq">FAQ</a></b
@@ -41,8 +41,39 @@
   {% endfor %}
 </div>
 
-{% for idea in object_list %}
-<div class="mb-5">
+{% if predictions|length != 0 %}
+<div class="mb-10">
+  <div class="font-bold mb-2">Aktuellste Hochrechnungen:</div>
+  {% for prediction in predictions %}
+  <div class="w-full">
+    <div class="text-sm absolute top-1/2 h-1/2"></div>
+    <div class="w-full h-8 border mb-1 flex">
+      {% for party in prediction.predictionpercentage_set.all %}
+      <div
+        data-tippy-content="{{ party.percentage }}%"
+        class="flex items-center pl-1 text-sm whitespace-nowrap overflow-visible uppercase font-bold"
+        style="background-color: {{party.party.color}}; width: {{party.percentage}}%; color: {{ party.party.contrast_color }};"
+      >
+        {% if forloop.first %} {{ prediction.name }} {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+  <div class="justify-end flex space-x-4">
+    {% for party in parties %}
+    <div class="flex items-center">
+      <div
+        class="h-3 w-3 rounded-full mr-1"
+        style="background-color: {{party.color}};"
+      ></div>
+      {{party.name}}
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %} {% for idea in object_list %}
+<div class="mb-5 mt-5">
   <div
     id="{{ idea.slug }}"
     class="p-3 bg-theme text-white font-bold uppercase bg-cover bg-center h-56 flex flex-col justify-end text-3xl md:text-4xl lg:text-5xl mb-3 shadow break-words"
@@ -140,4 +171,10 @@
     {% endfor %}
   </div>
 </div>
-{% endif %} {% endblock %}
+{% endif %} {% endblock %} {% block javascript %}
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/tippy.js@6"></script>
+<script>
+  tippy("[data-tippy-content]");
+</script>
+{% endblock %}

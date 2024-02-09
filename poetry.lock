@@ -300,6 +300,20 @@ Django = ">=3.2"
 django-js-asset = ">=2.0"
 
 [[package]]
+name = "django-colorfield"
+version = "0.11.0"
+description = "color field for django models with a nice color-picker in the admin."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-colorfield-0.11.0.tar.gz", hash = "sha256:05c38c8eb2a94938b810a19b2011846391a4ce71d1c92e88a35974fbcc8fc62e"},
+    {file = "django_colorfield-0.11.0-py3-none-any.whl", hash = "sha256:460f40e6123b6ae0fb51a4eb86fc258fcdc0ea28f75102b685e8209b1eae9ec3"},
+]
+
+[package.dependencies]
+Pillow = ">=9.0.0"
+
+[[package]]
 name = "django-image-uploader-widget"
 version = "0.4.1"
 description = "Simple Image Uploader Widget for Django-Admin"
@@ -964,4 +978,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "5f8b4f8020b809a2630c74d147517d8204591ae60de67a057fdf3e22547f922d"
+content-hash = "aea2a8e1666838fe0eca94f52008b2ab5c6fef9d3dd4f844277a91862044f644"

@@ -6,7 +6,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django_weasyprint.views import WeasyTemplateResponseMixin
 from django.http import FileResponse
 from htmldocx import HtmlToDocx
-from .models import ProjectIdea, Attachment, OverviewConfiguration, FAQ
+from .models import ProjectIdea, Attachment, OverviewConfiguration, FAQ, Prediction, Party
 from django.urls import reverse
 from aktivistisch_web.seo import get_breadcrumb
 from django.utils.html import strip_tags
@@ -33,9 +33,17 @@ class CatalogueListView(ListView):
         context = super(CatalogueListView, self).get_context_data(**kwargs)
         overview = OverviewConfiguration.get_solo()
         context["overview"] = overview
+
+        # Predictions
+        context["predictions"] = Prediction.objects.filter(visible=True).select_related()
+        context["parties"] = Party.objects.all()
+
+        # FAQ
         faqs = FAQ.objects.all().filter(draft=False).order_by("question")
         context["faq"] = faqs
         context["faq_json"] = get_faq_json(faqs)
+
+        # Meta
         context["meta"] = {
             'title': f"Startseite - {overview.page_title}",
             'url': self.request.build_absolute_uri(),

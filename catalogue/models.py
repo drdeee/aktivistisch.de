@@ -3,6 +3,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from ckeditor.fields import RichTextField
 from django.utils.translation import gettext_lazy as _
 from solo.models import SingletonModel
+from colorfield.fields import ColorField
 
 class ProjectIdea(models.Model):
     name = models.CharField(max_length=100)
@@ -111,3 +112,51 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
+
+class Party(models.Model):
+    name = models.CharField(max_length=100)
+    color = ColorField(format="hex")
+    order_by = models.IntegerField(default=0)
+
+    @property
+    def contrast_color(self):
+        color = self.color[1:]
+
+        hex_red = int(color[0:2], base=16)
+        hex_green = int(color[2:4], base=16)
+        hex_blue = int(color[4:6], base=16)
+
+        if (hex_red * 0.2126 + hex_green * 0.7152 + hex_blue * 0.0722) > 140:
+            return "#000000"
+        else:
+            return "#ffffff"
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Parties"
+
+
+class Prediction(models.Model):
+    name = models.CharField(max_length=100)
+    visible = models.BooleanField(default=False)
+    order_by = models.IntegerField(default=0)
+
+    parties = models.ManyToManyField(Party, through='PredictionPercentage')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["order_by"]
+
+    
+
+class PredictionPercentage(models.Model):
+    party = models.ForeignKey(Party, on_delete=models.CASCADE)
+    prediction = models.ForeignKey(Prediction, on_delete=models.CASCADE)
+    percentage = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+
+    class Meta:
+        ordering = ["party__order_by"]
