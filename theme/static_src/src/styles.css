@@ -42,3 +42,15 @@ ol {
   display: block;
   padding-inline-start: 10px;
 }
+
+.messages li {
+  @apply mb-1 p-4 w-full;
+}
+
+.messages li.success {
+  @apply bg-green-800 text-white;
+}
+
+.messages li.error {
+  @apply bg-red-800 text-white;
+}

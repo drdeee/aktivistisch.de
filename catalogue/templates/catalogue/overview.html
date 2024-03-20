@@ -72,7 +72,22 @@
     {% endfor %}
   </div>
 </div>
-{% endif %} {% for idea in object_list %}
+{% endif %}
+<div>
+  <div class="text-center">
+    <h3 class="text-4xl uppercase font-bold">Du hast Fragen?</h3>
+    <div class="flex justify-center">
+      <a
+        target="_self"
+        href="#kontakt"
+        class="block cursor-pointer mt-4 mb-10 p-2 px-5 font-bold bg-black hover:bg-white text-white hover:text-black border-2 border-black"
+        >Dann schreib uns!</a
+      >
+    </div>
+  </div>
+</div>
+
+{% for idea in object_list %}
 <div class="mb-5 mt-5">
   <div
     id="{{ idea.slug }}"
@@ -171,7 +186,27 @@
     {% endfor %}
   </div>
 </div>
-{% endif %} {% endblock %} {% block javascript %}
+{% endif %}
+
+<div id="kontakt" class="mt-10">
+  <h2 class="font-bold text-3xl md:text-4xl lg:text-5xl uppercase mb-3">
+    Kontakt
+  </h2>
+  <div>
+    <div class="mb-4 usertext">
+      Über das folgende Formular kannst du uns ganz einfach eine Nachricht
+      schreiben! Alternativ erreichst du uns auch per Mail unter
+      <a href="mailto:{{contact.email}}" target="_blank">{{contact.email}}</a>.
+      {% if contact.pgp_key_link %}
+      <a href="{{contact.pgp_key_link}}">Hier</a> findest du unseren PGP-Key zur
+      verschlüsselten Kommunikation.{% endif %}
+    </div>
+    <form action="/" method="post" target="_self">
+      {% csrf_token %} {{ contact_form }}
+    </form>
+  </div>
+</div>
+{% endblock %} {% block javascript %}
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 <script src="https://unpkg.com/tippy.js@6"></script>
 <script>

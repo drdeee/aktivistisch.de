@@ -15,7 +15,15 @@
   <body class="flex flex-col w-screen min-h-screen justify-between">
     <main class="flex flex-row justify-center p-3">
       <div class="w-full lg:w-4/5 xl:w-3/5 2xl:w-1/2">
-        {% block content %} {% endblock %}
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+            {{ message }}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% block content %} {% endblock %}
       </div>
       {% block admin %} {% if user.is_authenticated %}
       <div class="fixed top-0 left-0 py-1 px-2 bg-white">

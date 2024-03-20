@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProjectIdea, Step, Attachment, OverviewConfiguration, FAQ, Party, Prediction, PredictionPercentage
+from .models import ProjectIdea, Step, Attachment, OverviewConfiguration, FAQ, Party, Prediction, PredictionPercentage, ContactFormEntry
 from django.db import models
 from image_uploader_widget.widgets import ImageUploaderWidget
 from django import forms
@@ -42,3 +42,5 @@ class PredictionAdmin(admin.ModelAdmin):
 
 admin.site.register(Party)
 admin.site.register(Prediction, PredictionAdmin)
+
+admin.site.register(ContactFormEntry)

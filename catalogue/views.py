@@ -1,17 +1,20 @@
 import io
 import json
+import requests
 from django.views import View
 from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.detail import SingleObjectMixin
 from django_weasyprint.views import WeasyTemplateResponseMixin
 from django.http import FileResponse
 from htmldocx import HtmlToDocx
-from .models import ProjectIdea, Attachment, OverviewConfiguration, FAQ, Prediction, Party
+from .models import ProjectIdea, Attachment, OverviewConfiguration, FAQ, Prediction, Party, ContactFormEntry
+from .forms import ContactForm
 from django.urls import reverse
 from aktivistisch_web.seo import get_breadcrumb
-from django.utils.html import strip_tags
+from django.utils.html import strip_tags, escape
 from django.utils.safestring import mark_safe
 from django.shortcuts import redirect
+from django.contrib import messages
 
 def get_faq_json(faqs):
     if len(faqs) == 0:
@@ -49,7 +52,52 @@ class CatalogueListView(ListView):
             'url': self.request.build_absolute_uri(),
             'description': overview.page_description
         }
+
+        # Contact Formular
+        context["contact_form"] = ContactForm()
+        context["contact"] = {
+            'email': overview.email,
+            'pgp_key_link': overview.pgp_key_link
+        }
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = ContactForm(request.POST)
+        success = True
+
+        if form.is_valid():
+            entry = ContactFormEntry(name = form.cleaned_data['name'], contact = form.cleaned_data['contact'], message = form.cleaned_data['message'])
+            entry.save()
+
+            # make http request
+            overview = OverviewConfiguration.get_solo()
+            url = f"https://api.telegram.org/bot{overview.telegram_token}/sendMessage"
+
+            data = {
+                "chat_id": overview.telegram_contact_channel,
+                "text": f"<b>Name:</b> <code>{escape(form.cleaned_data['name'])}</code>\n"
+                + f"<b>Kontakt:</b> <code>{escape(form.cleaned_data['contact'])}</code>\n"
+                + f"<b>Nachricht:</b>\n<blockquote>{escape(form.cleaned_data['message'])}</blockquote>",
+               "parse_mode": "HTML"
+            }
+
+            try:
+                response = requests.post(url, data=data)
+                print(response.text)
+                response.raise_for_status()
+            except:
+                success = False
+
+        else:
+            success = False
+        
+
+        if success:
+            messages.success(request, "Deine Nachricht wurde versendet!")
+        else:
+            messages.error(request, "Deine Nachricht konnte nicht gesendet werden. Bitte versuche es erneut!")
+
+        return redirect(reverse("main"))
 
 class CatalogueDetailView(DetailView):
     template_name = "catalogue/detail.html"

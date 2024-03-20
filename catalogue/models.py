@@ -99,11 +99,22 @@ class OverviewConfiguration(SingletonModel):
     page_title = models.CharField(max_length=100)
     page_description = models.TextField(max_length=500)
 
+    email = models.EmailField()
+    pgp_key_link = models.URLField(null=True, blank=True)
+
+    telegram_token = models.CharField(max_length=100)
+    telegram_contact_channel = models.CharField(max_length=100)
+
     def __str__(self):
         return "Overview Configuration"
     
     class Meta:
         verbose_name = "Overview Configuration"
+
+class ContactFormEntry(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True)
+    contact = models.EmailField(max_length=100, null=True, blank=True)
+    message = models.TextField()
 
 class FAQ(models.Model):
     question = models.CharField(max_length=300)
