@@ -9,25 +9,32 @@ services:
       MYSQL_DATABASE: 'aktivistisch'
       MYSQL_USER: 'aktivistisch'
       MYSQL_PASSWORD: 'aktivistisch'
-      MYSQL_HOST: 'db'
+      MYSQL_HOST: 'aktivistisch_db'
       MYSQL_PORT: '3306'
-
+      PRODUCTION: 'TRUE'
+    links:
+      - aktivistisch_db
     networks:
-      - general
+      - extern
+      - intern
+
       
-  db:
-    image: 'jc21/mariadb-aria:latest'
-    restart: unless-stopped
+  aktivistisch_db:
+    image: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: 'aktivistisch'
-      MYSQL_DATABASE: 'aktivistisch'
-      MYSQL_USER: 'aktivistisch'
-      MYSQL_PASSWORD: 'aktivistisch'
-      MARIADB_AUTO_UPGRADE: '1'
+      MYSQL_ROOT_PASSWORD: aktivistisch
+      MYSQL_DATABASE: aktivistisch
+      MYSQL_USER: aktivistisch
+      MYSQL_PASSWORD: aktivistisch
     volumes:
       - ./mysql:/var/lib/mysql
+    networks:
+      - intern
 
 networks:
-  general:
+  extern:
     name: general
     external: true
+  intern:
+    driver: bridge
+
