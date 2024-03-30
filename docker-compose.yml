@@ -1,7 +1,33 @@
 services:
-  aktivistisch.de:
+  aktivistisch:
     command: "/app/entrypoint.sh"
     build: .
     volumes:
       - ./static:/app/static
       - ./media:/app/media
+    environment:
+      MYSQL_DATABASE: 'aktivistisch'
+      MYSQL_USER: 'aktivistisch'
+      MYSQL_PASSWORD: 'aktivistisch'
+      MYSQL_HOST: 'db'
+      MYSQL_PORT: '3306'
+
+    networks:
+      - general
+      
+  db:
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'aktivistisch'
+      MYSQL_DATABASE: 'aktivistisch'
+      MYSQL_USER: 'aktivistisch'
+      MYSQL_PASSWORD: 'aktivistisch'
+      MARIADB_AUTO_UPGRADE: '1'
+    volumes:
+      - ./mysql:/var/lib/mysql
+
+networks:
+  general:
+    name: general
+    external: true
