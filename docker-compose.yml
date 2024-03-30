@@ -3,8 +3,8 @@ services:
     command: "/app/entrypoint.sh"
     build: .
     volumes:
-      - ./static:/app/static
-      - ./media:/app/media
+      - static:/app/static
+      - media:/app/media
     environment:
       MYSQL_DATABASE: 'aktivistisch'
       MYSQL_USER: 'aktivistisch'
@@ -15,10 +15,10 @@ services:
     links:
       - aktivistisch_db
     networks:
-      - extern
       - intern
+    depends_on:
+      - aktivistisch_db
 
-      
   aktivistisch_db:
     image: mariadb
     environment:
@@ -27,8 +27,20 @@ services:
       MYSQL_USER: aktivistisch
       MYSQL_PASSWORD: aktivistisch
     volumes:
-      - ./mysql:/var/lib/mysql
+      - mysql:/var/lib/mysql
     networks:
+      - intern
+  
+  aktivistisch_proxy:
+    build: ./proxy
+    volumes:
+      - media:/app/media
+      - static:/app/static
+
+    depends_on:
+      - aktivistisch  
+    networks:
+      - extern
       - intern
 
 networks:
@@ -38,3 +50,7 @@ networks:
   intern:
     driver: bridge
 
+volumes:
+  static:
+  media:
+  mysql:
