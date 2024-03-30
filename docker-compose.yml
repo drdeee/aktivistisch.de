@@ -1,0 +1,7 @@
+services:
+  aktivistisch.de:
+    command: "/app/entrypoint.sh"
+    build: .
+    volumes:
+      - ./static:/app/static
+      - ./media:/app/media
