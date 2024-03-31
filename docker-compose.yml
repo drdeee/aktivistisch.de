@@ -12,6 +12,7 @@ services:
       MYSQL_HOST: 'aktivistisch_db'
       MYSQL_PORT: '3306'
       PRODUCTION: 'TRUE'
+      ALLOWED_HOSTS: 'aktivistisch.de'
     links:
       - aktivistisch_db
     networks:
@@ -43,8 +44,6 @@ services:
     networks:
       - extern
       - intern
-    ports:
-      - 8000:8080
     links:
       - aktivistisch
 

@@ -31,6 +31,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-rklr))ukga#0$z47gr&=sy)#ou
 DEBUG = os.getenv("PRODUCTION") != "TRUE"
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "aktivistisch.de").split(" ")
+CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://aktivistisch.de").split(" ")
 
 
 # Application definition
