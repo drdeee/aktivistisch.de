@@ -43,6 +43,10 @@ services:
     networks:
       - extern
       - intern
+    ports:
+      - 8000:8080
+    links:
+      - aktivistisch
 
 networks:
   extern:
