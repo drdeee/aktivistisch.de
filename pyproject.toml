@@ -12,7 +12,6 @@ Django = "^5.0"
 django-ckeditor = "^6.7.0"
 django-tailwind = {extras = ["reload"], version = "^3.7.0"}
 python-dotenv = "^1.0.0"
-mysqlclient = "^2.2.1"
 gunicorn = "^21.2.0"
 pillow = "^10.1.0"
 django-image-uploader-widget = "^0.4.1"
@@ -22,6 +21,7 @@ htmldocx = "^0.0.6"
 django-solo = "^2.1.0"
 django-colorfield = "^0.11.0"
 requests = "^2.31.0"
+mysqlclient = "^2.2.4"
 
 
 [build-system]

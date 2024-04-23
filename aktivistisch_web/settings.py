@@ -30,7 +30,10 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-rklr))ukga#0$z47gr&=sy)#ou
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("PRODUCTION") != "TRUE"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "aktivistisch.de").split(" ")
+if DEBUG:
+    ALLOWED_HOSTS = ["localhost"]
+else:
+    ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "aktivistisch.de").split(" ")
 CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "https://aktivistisch.de").split(" ")
 
 
