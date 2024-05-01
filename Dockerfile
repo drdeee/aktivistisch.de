@@ -13,3 +13,5 @@ RUN chmod +x /app/entrypoint.sh
 
 RUN poetry install --no-root
 EXPOSE 8000
+
+ENTRYPOINT /app/entrypoint.sh
